@@ -32,18 +32,30 @@ public class Program {
 
 		System.out.println("Which employee will have the salary increased? ");
 		System.out.print("Id: ");
-		int id = input.nextInt();
-		System.out.print("Percentage: ");
-		double percentage = input.nextDouble();
-		
+		int idSalary = input.nextInt();
+		Integer pos = position(list, idSalary);
+		if (pos == null) {
+			System.out.println("The id does not exist!");
+		} else {
+			System.out.print("Percentage: ");
+			double percentage = input.nextDouble();
+			list.get(pos).salaryIncrease(percentage);
+		}
+
+		System.out.println("\nList of employees");
 		for (Employee emp : list) {
-			if (id == emp.getId()) {
-				emp.salaryIncrease(percentage);
-			}
 			System.out.println(emp);
 		}
 		
 		input.close();
+	}
 
+	public static Integer position(List<Employee> list, int id) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getId() == id) {
+				return i;
+			}
+		}
+		return null;
 	}
 }
